@@ -1,8 +1,6 @@
 package ru.ar2code.mutableliveevent
 
-open class EventArgs<out T>(private val content: T?) {
-
-    var handled: Boolean = false
+open class EventArgs<out T>(private val content: T?) : Event() {
 
     val data: T?
         get() {

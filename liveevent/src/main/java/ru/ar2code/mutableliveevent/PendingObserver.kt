@@ -2,7 +2,7 @@ package ru.ar2code.mutableliveevent
 
 import androidx.lifecycle.Observer
 
-internal class PendingObserver<T : EventArgs<Any>>(val wrappedObserver: Observer<in T>) : Observer<T> {
+class PendingObserver<T : Event>(val wrappedObserver: Observer<in T>) : Observer<T> {
 
     private var pending = false
 
@@ -16,5 +16,4 @@ internal class PendingObserver<T : EventArgs<Any>>(val wrappedObserver: Observer
     fun awaitValue() {
         pending = true
     }
-
 }

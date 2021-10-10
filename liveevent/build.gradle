@@ -6,7 +6,6 @@ apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 29
 
-
     defaultConfig {
         minSdkVersion 15
         targetSdkVersion 29
@@ -23,21 +22,20 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
 }
 
 publish {
-    def groupProjectID = 'ru.ar2code.mutableliveevent'
+    def groupProjectID = 'com.github.NikCapko'
     def artifactProjectID = 'MutableLiveEvent'
-    def publishVersionID = '1.0.0'
+    def publishVersionID = '1.0.1'
 
-    userOrg = 'ar2code'
+    userOrg = 'NikCapko'
     repoName = 'MutableLiveEvent'
     groupId = groupProjectID
     artifactId = artifactProjectID
     publishVersion = publishVersionID
     desc = 'LiveEvent based on Android LiveData'
-    website = 'https://github.com/ar2code/MutableLiveEvent'
+    website = 'https://github.com/NikCapko/MutableLiveEvent'
 }
 
 dependencies {

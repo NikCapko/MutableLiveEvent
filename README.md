@@ -16,43 +16,56 @@ MutableLiveEvent has the following properties:
 To start using this library, add these lines to the build.gradle of your project:
 
 ```xml
-repositories {
-    jcenter()
-}
-
 dependencies {
-    implementation 'ru.ar2code.mutableliveevent:live-event:1.0.2'
+    implementation 'com.github.NikCapko:MutableLiveEvent:1.0.1'
 }
 ```
 
 ## How to use
 
 ```kotlin
-//Create EventArgs class to store your types of data
+// Create EventArgs class to store your types of data
+object MyEvent : Event()
+// Create EventArgs class to store your types of data
 class MyIntEventArgs(data: Int) : EventArgs<Int>(data)
 
-//Create usual viewModel
+// Create usual viewModel
 class MainViewModel : ViewModel() {
 
-    private val myEventMutable = MutableLiveEvent<MyIntEventArgs>()
+    private val myEventMutable = MutableLiveEvent<MyEvent>()
     val myEvent = myEventMutable as LiveData<MyIntEventArgs>
 
-    fun sendEvent(data: Int) {
-        myEventMutable.value = MyIntEventArgs(data)
+    private val myIntEventMutable = MutableLiveEvent<MyIntEventArgs>()
+    val myIntEvent = myIntEventMutable as LiveData<MyIntEventArgs>
+
+    fun sendEvent() {
+        myEventMutable.value = MyEvent()
+    }
+
+    fun sendIntEvent(data: Int) {
+        myIntEventMutable.value = MyIntEventArgs(data)
     }
 }
 
 val vm = ViewModelProviders.of(this).get(MainViewModel::class.java)
 
-//Observe LiveEvent as usual LiveData
+// Observe LiveEvent as usual LiveData
 vm.myEvent.observe(this, Observer {
-   //handle event here
+   // handle event here
    /*
    * If the event is handled and you do not want this event to be handled by any other observers.
    */
    it.handled = true
-})      
+})
+
+vm.myIntEvent.observe(this, Observer {
+   // handle event here
+   /*
+   * If the event is handled and you do not want this event to be handled by any other observers.
+   */
+   it.handled = true
+})
 ```
 
 ## License
-  [MIT](https://github.com/ar2code/MutableLiveEvent/blob/master/LICENSE)
+  [MIT](https://github.com/NikCapko/MutableLiveEvent/blob/master/LICENSE)

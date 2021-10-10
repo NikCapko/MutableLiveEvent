@@ -6,7 +6,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 
-class MutableLiveEvent<T : EventArgs<Any>> : MutableLiveData<T>() {
+class MutableLiveEvent<T : Event> : MutableLiveData<T>() {
 
     internal val observers = ArraySet<PendingObserver<in T>>()
 
@@ -21,13 +21,11 @@ class MutableLiveEvent<T : EventArgs<Any>> : MutableLiveData<T>() {
     override fun observeForever(observer: Observer<in T>) {
         val wrapper = PendingObserver(observer)
         observers.add(wrapper)
-
         super.observeForever(wrapper)
     }
 
     @MainThread
     override fun removeObserver(observer: Observer<in T>) {
-
         when (observer) {
             is PendingObserver -> {
                 observers.remove(observer)
